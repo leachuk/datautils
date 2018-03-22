@@ -1,6 +1,14 @@
 package mappify
 
-import "fmt"
+import (
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"bytes"
+)
+
+const MappifyHost = "http://mappify.io/api/rpc"
+const MappifyAddrGeocodeEndpoint = MappifyHost + "/address/geocode"
 
 type Address struct {
 	StreetAddress	string
@@ -20,6 +28,20 @@ func (a Address) String() string {
 }
 
 func AddressGeocode(address Address) string {
-	return "Mappify this: " + fmt.Sprintln(address)
+	data := fmt.Sprintf("{%s}",address)
+	fmt.Println("Input data:" + data)
+
+	client := &http.Client{}
+	req, err := http.NewRequest("POST", MappifyAddrGeocodeEndpoint,
+		bytes.NewBufferString(data))
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Printf("http POST error: %s", err)
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+
+	return string(body)
 }
 

@@ -12,5 +12,5 @@ func main() {
 		"2000",
 		"NSW"}
 
-	fmt.Println(mappify.AddressGeocode(address))
+	fmt.Println("Return data: " + mappify.AddressGeocode(address))
 }
