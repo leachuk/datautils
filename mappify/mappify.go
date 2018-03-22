@@ -28,12 +28,13 @@ func (a Address) String() string {
 }
 
 func AddressGeocode(address Address) string {
-	data := fmt.Sprintf("{%s}",address)
-	fmt.Println("Input data:" + data)
+	jsonData := fmt.Sprintf("{%s}",address)
+	fmt.Println("Input data:" + jsonData)
 
 	client := &http.Client{}
-	req, err := http.NewRequest("POST", MappifyAddrGeocodeEndpoint,
-		bytes.NewBufferString(data))
+	req, err := http.NewRequest("POST",
+		MappifyAddrGeocodeEndpoint,
+		bytes.NewBufferString(jsonData))
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := client.Do(req)
 	if err != nil {
