@@ -15,19 +15,9 @@ type CsvData struct {
 	Row		[]string
 }
 
-func csvReader() (s *csv.Reader) {
-	rootPath, _ := filepath.Abs(".")
-	fmt.Println(rootPath)
+func ReadCSV(path string) *CsvData {
+	reader := csvReader(path)
 
-	csvFile, _ := os.Open(rootPath + "/csvservice/datasample.csv")
-
-	return csv.NewReader(bufio.NewReader(csvFile))
-}
-
-func main() {
-	fmt.Println("csvservice main")
-
-	reader := csvReader()
 	var data CsvData
 	for i := 0; ; i++ {
 		line, error := reader.Read()
@@ -45,8 +35,28 @@ func main() {
 			}
 		} else {
 			for _, row := range line {
-				data.Heading = append(data.Row, row)
+				data.Row = append(data.Row, row)
 			}
 		}
 	}
+
+	return &data
+}
+
+func csvReader(path string) (s *csv.Reader) {
+	rootPath, _ := filepath.Abs(".")
+	fmt.Println(rootPath)
+
+	csvFile, _ := os.Open(rootPath + path)
+
+	return csv.NewReader(bufio.NewReader(csvFile))
+}
+
+func main() {
+	fmt.Println("csvservice main")
+
+	csv := ReadCSV("/csvservice/datasample.csv")
+
+	fmt.Printf("Header data:%s\n", csv.Heading)
+	fmt.Printf("Row data:%s\n", csv.Row)
 }
