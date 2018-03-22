@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	//todo: parse csv file and extract address
 	address := mappify.Address{
 		"252 Botany St",
 		"Sydney",
