@@ -11,10 +11,10 @@ const MappifyHost = "http://mappify.io/api/rpc"
 const MappifyAddrGeocodeEndpoint = MappifyHost + "/address/geocode"
 
 type Address struct {
-	StreetAddress	string
-	Suburb	string
-	Postcode	string
-	State	string
+	StreetAddress	string	`json:streetAddress`
+	Suburb			string	`json:suburb`
+	Postcode		string	`json:postCode"`
+	State			string	`json:state`
 }
 
 //provide custom string formatter to map to Mappify requirement. Will replace with JSON later.
