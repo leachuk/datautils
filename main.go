@@ -8,10 +8,11 @@ import (
 
 func main() {
 	csv := csvservice.ReadCSV("/csvservice/datasample.csv")
-
-	fmt.Printf("Header data:%s\n", csv.Heading)
-	fmt.Printf("Row data:%s\n", csv.Row)
-
+	csv2 := csvservice.ReadCSV("/csvservice/datasample2.csv")
+	fmt.Printf("CVS1 Header data:%s\n", csv.Heading)
+	fmt.Printf("CSV1 Row data:%s\n", csv.Row)
+	fmt.Printf("CSV2 Header data:%s\n", csv2.Heading)
+	fmt.Printf("CSV2 Row data:%s\n", csv2.Row)
 	address := mappify.Address{
 		"252 Botany St",
 		"Sydney",

@@ -15,7 +15,7 @@ type CsvData struct {
 	Row		[]string
 }
 
-func ReadCSV(path string) *CsvData {
+func ReadCSV(path string) CsvData {
 	reader := csvReader(path)
 
 	var data CsvData
@@ -40,7 +40,7 @@ func ReadCSV(path string) *CsvData {
 		}
 	}
 
-	return &data
+	return data
 }
 
 func csvReader(path string) (s *csv.Reader) {
