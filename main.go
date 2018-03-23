@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-	//todo: parse csv file and extract address
 	csv := csvservice.ReadCSV("/csvservice/datasample.csv")
 
 	fmt.Printf("Header data:%s\n", csv.Heading)
