@@ -1,4 +1,4 @@
-package main
+package csvservice
 
 import (
 	"fmt"
@@ -50,13 +50,4 @@ func csvReader(path string) (s *csv.Reader) {
 	csvFile, _ := os.Open(rootPath + path)
 
 	return csv.NewReader(bufio.NewReader(csvFile))
-}
-
-func main() {
-	fmt.Println("csvservice main")
-
-	csv := ReadCSV("/csvservice/datasample.csv")
-
-	fmt.Printf("Header data:%s\n", csv.Heading)
-	fmt.Printf("Row data:%s\n", csv.Row)
 }
