@@ -21,7 +21,7 @@ func ReadCSV(path string) []CsvData {
 	var data []CsvData
 	var heading []string
 	var datamap map[string]string
-	
+
 	for i := 0; ; i++ {
 		line, error := reader.Read()
 		if error == io.EOF {
@@ -30,10 +30,8 @@ func ReadCSV(path string) []CsvData {
 			log.Fatal(error)
 		}
 
-		//fmt.Printf("[%d]%s\n", i, line)
 		if i == 0 {
-			for j, header := range line {
-				fmt.Printf("heading[%d]%s\n",j, header)
+			for _, header := range line {
 				heading = append(heading, header)
 			}
 		} else {

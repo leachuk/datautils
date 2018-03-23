@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"bytes"
+	"encoding/json"
 )
 
 const MappifyHost = "http://mappify.io/api/rpc"
@@ -28,13 +29,14 @@ func (a Address) String() string {
 }
 
 func AddressGeocode(address Address) string {
-	jsonData := fmt.Sprintf("{%s}",address)
-	fmt.Println("Input data:" + jsonData)
+	//jsonData := fmt.Sprintf("{%s}",address)
+	jsonData, _ := json.Marshal(address)
+	fmt.Println("Input data:" + string(jsonData))
 
 	client := &http.Client{}
 	req, err := http.NewRequest("POST",
 		MappifyAddrGeocodeEndpoint,
-		bytes.NewBufferString(jsonData))
+		bytes.NewBufferString(string(jsonData)))
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := client.Do(req)
 	if err != nil {
