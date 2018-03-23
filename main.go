@@ -4,6 +4,8 @@ import (
 	"fmt"
 	//"github.com/leachuk/datautils/mappify"
 	"github.com/leachuk/datautils/csvservice"
+	//"github.com/leachuk/datautils/mappify"
+	//"encoding/json"
 )
 
 func main() {
@@ -17,13 +19,14 @@ func main() {
 		//	m[headingitem] = csv.Row[i]
 		//}
 	}
-	//fmt.Println(m)
+	fmt.Println(csv[0].Data["postCode"])
 
-	//address := mappify.Address{
-	//	"252 Botany St",
+	//address1 := mappify.Address{
+	//	csv[0].Data[0],
 	//	"Sydney",
 	//	"2000",
 	//	"NSW"}
-
+	//addressJson, _ := json.Marshal(address1)
+	//fmt.Println(string(addressJson))
 	//fmt.Println("Return data: " + mappify.AddressGeocode(address))
 }

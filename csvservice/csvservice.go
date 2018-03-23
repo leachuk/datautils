@@ -12,7 +12,7 @@ import (
 
 type CsvData struct {
 	Heading	[]string
-	Data []string
+	Data map[string]string
 }
 
 func ReadCSV(path string) []CsvData {
@@ -20,9 +20,9 @@ func ReadCSV(path string) []CsvData {
 
 	var data []CsvData
 	var heading []string
-
+	var datamap map[string]string
+	
 	for i := 0; ; i++ {
-		var rowdata []string
 		line, error := reader.Read()
 		if error == io.EOF {
 			break
@@ -37,11 +37,13 @@ func ReadCSV(path string) []CsvData {
 				heading = append(heading, header)
 			}
 		} else {
+			datamap = make(map[string]string)
 			for k, row := range line {
 				fmt.Printf("(%v)[heading:%s]data[%s]\n",k,heading[k],row)
-				rowdata = append(rowdata, row)
+				datamap[heading[k]] = row
 			}
-			data = append(data, CsvData{heading,rowdata})
+
+			data = append(data, CsvData{heading,datamap})
 		}
 
 	}
