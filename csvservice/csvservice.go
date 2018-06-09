@@ -57,3 +57,21 @@ func csvReader(path string) (s *csv.Reader) {
 
 	return csv.NewReader(bufio.NewReader(csvFile))
 }
+
+func WriteCSV(path string, data [][]string) {
+	file, err := os.Create(path)
+	if err != nil {
+		log.Fatal("Cannot create file", err)
+	}
+	defer file.Close()
+
+	writer := csv.NewWriter(file)
+	defer writer.Flush()
+
+	for _, value := range data {
+		err := writer.Write(value)
+		if err != nil {
+			log.Fatal("Cannot write to file", err)
+		}
+	}
+}
