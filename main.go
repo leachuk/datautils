@@ -18,7 +18,8 @@ func main() {
 			row.Data["postCode"],
 			row.Data["state"]}
 
-		fmt.Printf("Return address [%v]: %#v\n",i, mappify.AddressGeocode(address))
+		//See https://golang.org/pkg/fmt/ for formatting of output (%#v,%+v etc)
+		fmt.Printf("Return address [%v]: %+v\n",i, mappify.AddressGeocode(address))
 	}
 
 }
