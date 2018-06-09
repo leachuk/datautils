@@ -62,7 +62,10 @@ func AddressGeocode(address Address) AddressGeocodeResponse {
 	body, err := ioutil.ReadAll(resp.Body)
 
 	var jsonResponse AddressGeocodeResponse
-	json.Unmarshal([]byte(body), &jsonResponse)
+	err = json.Unmarshal([]byte(body), &jsonResponse)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
 
 	return AddressGeocodeResponse(jsonResponse)
 }
