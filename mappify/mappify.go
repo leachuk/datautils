@@ -18,6 +18,22 @@ type Address struct {
 	State			string	`json:"state"`
 }
 
+//note. All types must be set correctly (i.e. float64/string/int) or things are intermittently incorrect
+//e.g. Lat & Long were string, which caused StreetAdress to be empty, while State was correctly set.
+type AddressGeocodeResponse struct {
+	Result struct {
+		Location struct{
+			Lat		float64	`json:"lat"`
+			Long 	float64	`json:"lon"`
+		} `json:"location"`
+		StreetAddress	string	`json:"streetAddress"`
+		State			string	`json:"state"`
+		Suburb			string	`json:"suburb"`
+	} `json:"result"`
+	Confidence	float64
+	Type		string
+}
+
 //provide custom string formatter to map to Mappify requirement. Will replace with JSON later.
 //{"streetAddress":"252 Botany St","suburb":"Sydney","postcode":2000,"state":"NSW"}
 func (a Address) String() string {
@@ -28,7 +44,7 @@ func (a Address) String() string {
 		"\"state\":\"%s\"", a.StreetAddress, a.Suburb, a.Postcode, a.State)
 }
 
-func AddressGeocode(address Address) string {
+func AddressGeocode(address Address) AddressGeocodeResponse {
 	//jsonData := fmt.Sprintf("{%s}",address)
 	jsonData, _ := json.Marshal(address)
 	fmt.Println("Input data:" + string(jsonData))
@@ -45,6 +61,9 @@ func AddressGeocode(address Address) string {
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 
-	return string(body)
+	var jsonResponse AddressGeocodeResponse
+	json.Unmarshal([]byte(body), &jsonResponse)
+
+	return AddressGeocodeResponse(jsonResponse)
 }
 

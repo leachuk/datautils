@@ -18,7 +18,7 @@ func main() {
 			row.Data["postCode"],
 			row.Data["state"]}
 
-		fmt.Printf("Return address [%v]: %s\n",i, mappify.AddressGeocode(address))
+		fmt.Printf("Return address [%v]: %#v\n",i, mappify.AddressGeocode(address))
 	}
 
 }
