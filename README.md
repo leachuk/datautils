@@ -5,6 +5,7 @@ Using [mappify geocode api](http://mappify.io/docs/#api-Geocoding-PostApiRpcAddr
 `./main -csvfile=datasample.csv -debug`
 
 ### inputs
+* `-h` or `--help` (optional) output help
 * `-csvfile` (required) specify the data input file for parsing by mappify. The colunm headings must match those in the datasample.csv file
 * `-debug` (optional) print debug output
 
