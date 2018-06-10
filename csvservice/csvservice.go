@@ -51,9 +51,9 @@ func ReadCSV(path string) []CsvData {
 
 func csvReader(path string) (s *csv.Reader) {
 	rootPath, _ := filepath.Abs(".")
-	fmt.Println(rootPath)
 
-	csvFile, _ := os.Open(rootPath + path)
+	fmt.Println(rootPath + "/" + path)
+	csvFile, _ := os.Open(rootPath + "/" + path)
 
 	return csv.NewReader(bufio.NewReader(csvFile))
 }
