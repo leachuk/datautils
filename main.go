@@ -9,8 +9,8 @@ import (
 )
 
 func main() {
-	isDebug := flag.Bool("debug", false, "enable debug output")
-	filename := flag.String("csvfile", "", "CSV filename flag. Defaults to empty")
+	isDebug := flag.Bool("debug", false, "Enable debug output")
+	filename := flag.String("csvfile", "", "CSV filename. Defaults to an empty string")
 	flag.Parse()
 
 	if *filename == "" {

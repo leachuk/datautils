@@ -2,9 +2,9 @@
 Using [mappify geocode api](http://mappify.io/docs/#api-Geocoding-PostApiRpcAddressGeocode) to parse address data and output lat long to csv
 
 ## usage
-`go build main.go`
+`go build`
 
-`./main -csvfile=datasample.csv -debug`
+`./datautils -csvfile=datasample.csv -debug`
 
 ### inputs
 * `-h` or `--help` (optional) output help
