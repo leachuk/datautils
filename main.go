@@ -5,19 +5,22 @@ import (
 	"github.com/leachuk/datautils/csvservice"
 	"github.com/leachuk/datautils/mappify"
 	"strconv"
-	"os"
+	"flag"
 )
 
-
-
 func main() {
-	if len(os.Args) <= 1 {
+	isDebug := flag.Bool("debug", false, "enable debug output")
+	filename := flag.String("csvfile", "", "CSV filename flag. Defaults to empty")
+	flag.Parse()
+
+	if *filename == "" {
 		fmt.Println("Error: csv filename argument required.")
 	}else{
-		csvFilenameArg := os.Args[1]
+		csvFilenameArg := *filename
 		fmt.Printf("Parsing file: %s\n", csvFilenameArg)
 		csv := csvservice.ReadCSV(csvFilenameArg)
 
+		//csv file column headings
 		var csvOutput = [][]string{{"confidence", "streetAddress", "state", "lat", "long"}}
 
 		for i, row := range csv{
@@ -29,8 +32,9 @@ func main() {
 
 		//See https://golang.org/pkg/fmt/ for formatting of output (%#v,%+v etc)
 		var geocodeResponse = mappify.AddressGeocode(address)
-		fmt.Printf("Return address [%v]: %+v\n", i, geocodeResponse)
-
+		if *isDebug {
+			fmt.Printf("Return address [%v]: %+v\n", i, geocodeResponse)
+		}
 		confidence := strconv.FormatFloat(geocodeResponse.Confidence, 'f', -1, 32)
 		streetAddress := geocodeResponse.Result.StreetAddress
 		state := geocodeResponse.Result.State
@@ -41,6 +45,7 @@ func main() {
 	}
 
 		csvservice.WriteCSV("output.csv", csvOutput)
+		fmt.Println("Successfully created output.csv")
 	}
 
 }

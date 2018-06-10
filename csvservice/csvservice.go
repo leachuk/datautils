@@ -8,6 +8,7 @@ import (
 	"os"
 	"bufio"
 	"path/filepath"
+	"flag"
 )
 
 type CsvData struct {
@@ -16,6 +17,8 @@ type CsvData struct {
 }
 
 func ReadCSV(path string) []CsvData {
+	isDebug := flag.Lookup("debug").Value.(flag.Getter).Get().(bool)
+
 	reader := csvReader(path)
 
 	var data []CsvData
@@ -37,7 +40,9 @@ func ReadCSV(path string) []CsvData {
 		} else {
 			datamap = make(map[string]string)
 			for k, row := range line {
-				fmt.Printf("(%v)[heading:%s]data[%s]\n",k,heading[k],row)
+				if isDebug {
+					fmt.Printf("(%v)[heading:%s]data[%s]\n", k, heading[k], row)
+				}
 				datamap[heading[k]] = row
 			}
 
@@ -50,9 +55,13 @@ func ReadCSV(path string) []CsvData {
 }
 
 func csvReader(path string) (s *csv.Reader) {
+	isDebug := flag.Lookup("debug").Value.(flag.Getter).Get().(bool)
+
 	rootPath, _ := filepath.Abs(".")
 
-	fmt.Println(rootPath + "/" + path)
+	if isDebug {
+		fmt.Println("csvReader file path:" + rootPath + "/" + path)
+	}
 	csvFile, _ := os.Open(rootPath + "/" + path)
 
 	return csv.NewReader(bufio.NewReader(csvFile))
