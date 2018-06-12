@@ -11,6 +11,7 @@ Using [mappify geocode api](http://mappify.io/docs/#api-Geocoding-PostApiRpcAddr
 
 #### inputs
 * `-h` or `--help` (optional) output help
+* `-apikey` (optional) specify your mappify API key
 * `-csvfile` (required) specify the data input file for parsing by mappify. The colunm headings must match those in the datasample.csv file
 * `-debug` (optional) print debug output
 
