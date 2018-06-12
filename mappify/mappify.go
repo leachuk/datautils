@@ -17,6 +17,7 @@ type Address struct {
 	Suburb			string	`json:"suburb"`
 	Postcode		string	`json:"postCode"`
 	State			string	`json:"state"`
+	ApiKey			string	`json:"apiKey"`
 }
 
 //note. All types must be set correctly (i.e. float64/string/int) or things are intermittently incorrect
